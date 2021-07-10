@@ -17,5 +17,7 @@ namespace ProyectoVinos.Data
         public DbSet<ProyectoVinos.Models.Cliente> Cliente { get; set; }
 
         public DbSet<ProyectoVinos.Models.Diseño> Diseño { get; set; }
+
+        public DbSet<ProyectoVinos.Models.Vino> Vino { get; set; }
     }
 }
