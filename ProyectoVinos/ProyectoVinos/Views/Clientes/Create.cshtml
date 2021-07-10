@@ -1,12 +1,15 @@
 ﻿@model ProyectoVinos.Models.Cliente
 
+@{
+    ViewData["Title"] = "Create";
+}
 
-@{ ViewData["Title"] = "Registrarse"; }
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
 <style>
     .bd-placeholder-img {
         font-size: 1.125rem;
@@ -77,7 +80,7 @@
                     <input class="form-control" asp-for="FechaNacimiento" />
                     <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
 
-                    <input type="hidden" asp-for="Rol" value="cliente"/>
+                    <input type="hidden" asp-for="Rol" value="cliente" />
                     <br />
                     <button class="w-100 btn btn-lg btn-primary" type="submit" value="Create" style="background-color: #195da3; border: #195da3;">Crear</button>
                 </div>
@@ -85,3 +88,7 @@
         </main>
     </div>
 </body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

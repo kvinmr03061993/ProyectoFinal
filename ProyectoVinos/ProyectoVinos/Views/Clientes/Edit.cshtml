@@ -4,98 +4,91 @@
     ViewData["Title"] = "Edit";
 }
 
-@{ ViewData["Title"] = "Registrarse"; }
-<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-</style>
+<h1>Edit</h1>
 
-<body class="text-center">
-    <div class="bodySignin bgImage" style="background-image:url(../../images/FondoLogin.jpg); background-size:cover; background-position:center">
-        <main class="form-signin py-5">
-            <form asp-action="Edit">
-                <div class="col-3 card" style="padding-left: 2.5%; padding-right: 2.5%; padding-bottom: 2.5%; padding-top: 2.5%; background-color: #343434; margin:auto">
-                    <div class="row">
-                        <div class="col align-self-center">
-                            <img class="mb-4" src="~/images/Logo1.png" alt="" width="150" height="150">
-                        </div>
-                    </div>
-                    <input type="hidden" asp-for="IdCliente" />
-                    <h1 class="h3 mb-3 fw-normal" style="font-family: 'Lobster', cursive; color: white ; text-align: center;">Editar Cliente</h1>
-                    <label style="color:aliceblue" class="visually-hidden">Nombre</label>
-                    <input class="form-control" asp-for="Nombre" />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Primer Apellido</label>
-                    <input class="form-control" asp-for="PrimerApellido" />
-                    <span asp-validation-for="PrimerApellido" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Segundo Apellido</label>
-                    <input class="form-control" asp-for="SegundoApellido" />
-                    <span asp-validation-for="SegundoApellido" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Correo</label>
-                    <input class="form-control" asp-for="Correo" />
-                    <span asp-validation-for="Correo" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Telefono</label>
-                    <input class="form-control" asp-for="Telefono" />
-                    <span asp-validation-for="Telefono" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Usuario</label>
-                    <input class="form-control" asp-for="Usuario" readonly />
-                    <span asp-validation-for="Usuario" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Contraseña</label>
-                    <input class="form-control" asp-for="Pass" />
-                    <span asp-validation-for="Pass" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Direccion</label>
-                    <input class="form-control" asp-for="Direccion" />
-                    <span asp-validation-for="Direccion" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Provincia</label>
-                    <input class="form-control" asp-for="Provincia" />
-                    <span asp-validation-for="Provincia" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Canton</label>
-                    <input class="form-control" asp-for="Canton" />
-                    <span asp-validation-for="Canton" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Distrito</label>
-                    <input class="form-control" asp-for="Distrito" />
-                    <span asp-validation-for="Distrito" class="text-danger"></span>
-
-                    <label style="color:aliceblue" class="visually-hidden">Fecha Nacimiento</label>
-                    <input class="form-control" asp-for="FechaNacimiento" />
-                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
-
-
-                    <label  style="color:aliceblue" class="visually-hidden">Rol</label>
-                    <select class="form-control" asp-for="Rol">
-                        <option value="admin">Administrador</option>
-                        <option value="cliente">Cliente</option>
-                    </select>
-
-                    <br />
-                    <button class="w-100 btn btn-lg btn-primary" type="submit" value="Save" style="background-color: #195da3; border: #195da3;">Guardar</button>
-                    <label style="color:aliceblue" class="visually-hidden"></label>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit" value="Save" style="background-color: #195da3; border: #195da3;" asp-action="Index">Volver a la lista</button>
-                </div>
-                <div>
-                    <a></a>
-                </div>
-            </form>
-        </main>
+<h4>Cliente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdCliente" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrimerApellido" class="control-label"></label>
+                <input asp-for="PrimerApellido" class="form-control" />
+                <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SegundoApellido" class="control-label"></label>
+                <input asp-for="SegundoApellido" class="form-control" />
+                <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" class="form-control" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pass" class="control-label"></label>
+                <input asp-for="Pass" class="form-control" />
+                <span asp-validation-for="Pass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Provincia" class="control-label"></label>
+                <input asp-for="Provincia" class="form-control" />
+                <span asp-validation-for="Provincia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Canton" class="control-label"></label>
+                <input asp-for="Canton" class="form-control" />
+                <span asp-validation-for="Canton" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Distrito" class="control-label"></label>
+                <input asp-for="Distrito" class="form-control" />
+                <span asp-validation-for="Distrito" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaNacimiento" class="control-label"></label>
+                <input asp-for="FechaNacimiento" class="form-control" />
+                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rol" class="control-label"></label>
+                <input asp-for="Rol" class="form-control" />
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</body>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVinos.Data;
 
+
 namespace ProyectoVinos
 {
     public class Startup
@@ -29,6 +30,8 @@ namespace ProyectoVinos
 
             services.AddDbContext<ProyectoVinosContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProyectoVinosContext")));
+
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +58,7 @@ namespace ProyectoVinos
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Clientes}/{action=InicioSesion}/{id?}");
+                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

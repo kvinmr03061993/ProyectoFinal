@@ -10,22 +10,22 @@ using ProyectoVinos.Models;
 
 namespace ProyectoVinos.Controllers
 {
-    public class ClientesController : Controller
+    public class DiseñoController : Controller
     {
         private readonly ProyectoVinosContext _context;
 
-        public ClientesController(ProyectoVinosContext context)
+        public DiseñoController(ProyectoVinosContext context)
         {
             _context = context;
         }
 
-        // GET: Clientes
+        // GET: Diseño
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cliente.ToListAsync());
+            return View(await _context.Diseño.ToListAsync());
         }
 
-        // GET: Clientes/Details/5
+        // GET: Diseño/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProyectoVinos.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.IdCliente == id);
-            if (cliente == null)
+            var diseño = await _context.Diseño
+                .FirstOrDefaultAsync(m => m.IdDiseño == id);
+            if (diseño == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(diseño);
         }
 
-        // GET: Clientes/Create
+        // GET: Diseño/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clientes/Create
+        // POST: Diseño/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCliente,Nombre,PrimerApellido,SegundoApellido,Correo,Telefono,Usuario,Pass,Direccion,Provincia,Canton,Distrito,FechaNacimiento,Rol")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("IdDiseño,Nombre,Descripcion")] Diseño diseño)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(diseño);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(diseño);
         }
 
-        // GET: Clientes/Edit/5
+        // GET: Diseño/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProyectoVinos.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente.FindAsync(id);
-            if (cliente == null)
+            var diseño = await _context.Diseño.FindAsync(id);
+            if (diseño == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            return View(diseño);
         }
 
-        // POST: Clientes/Edit/5
+        // POST: Diseño/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,PrimerApellido,SegundoApellido,Correo,Telefono,Usuario,Pass,Direccion,Provincia,Canton,Distrito,FechaNacimiento,Rol")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDiseño,Nombre,Descripcion")] Diseño diseño)
         {
-            if (id != cliente.IdCliente)
+            if (id != diseño.IdDiseño)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProyectoVinos.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(diseño);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.IdCliente))
+                    if (!DiseñoExists(diseño.IdDiseño))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace ProyectoVinos.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            return View(diseño);
         }
 
-        // GET: Clientes/Delete/5
+        // GET: Diseño/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace ProyectoVinos.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.IdCliente == id);
-            if (cliente == null)
+            var diseño = await _context.Diseño
+                .FirstOrDefaultAsync(m => m.IdDiseño == id);
+            if (diseño == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(diseño);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Diseño/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Cliente.FindAsync(id);
-            _context.Cliente.Remove(cliente);
+            var diseño = await _context.Diseño.FindAsync(id);
+            _context.Diseño.Remove(diseño);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool DiseñoExists(int id)
         {
-            return _context.Cliente.Any(e => e.IdCliente == id);
+            return _context.Diseño.Any(e => e.IdDiseño == id);
         }
     }
 }

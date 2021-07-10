@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoVinos.Data;
 using ProyectoVinos.Models;
 using System;
 using System.Collections.Generic;
