@@ -17,7 +17,7 @@ namespace ProyectoVinos.Models
         [Required(ErrorMessage = "Escriba la fecha de creacion.")]
         public DateTime FechaCreacion { get; set; }
 
-        
+
         [Required(ErrorMessage = "Escriba la fecha de entrega.")]
         [DataType(DataType.Date)]
         public DateTime FechaEntrega { get; set; }
@@ -27,11 +27,8 @@ namespace ProyectoVinos.Models
         [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public double PrecioTotal { get; set; }
 
-        [Required(ErrorMessage = "Escriba el estado.")]
-        [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
-        [MaxLength(32, ErrorMessage = "Escriba menos de 32 caracteres")]
-        public string Descripcion { get; set; }
-
-
     }
+
+
+  
 }

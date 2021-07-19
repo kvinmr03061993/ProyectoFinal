@@ -36,11 +36,13 @@ namespace ProyectoVinos.Controllers
 
         public ActionResult Login()
         {
+
+
             return View();
         }
 
         // GET: LoginController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
             return View();
         }
@@ -67,7 +69,7 @@ namespace ProyectoVinos.Controllers
         }
 
         // GET: LoginController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
@@ -88,7 +90,7 @@ namespace ProyectoVinos.Controllers
         }
 
         // GET: LoginController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
