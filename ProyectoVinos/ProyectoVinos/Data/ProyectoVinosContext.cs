@@ -9,6 +9,8 @@ namespace ProyectoVinos.Data
 {
     public class ProyectoVinosContext : DbContext
     {
+
+
         public ProyectoVinosContext (DbContextOptions<ProyectoVinosContext> options)
             : base(options)
         {
