@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ProyectoVinos.Models.Cliente
+
+
+<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+</style>
+
+
+
+<body class="text-center">
+    <div class="bodySignin bgImage" style="background-image:url(../../images/Fondo.jpg); background-size:cover; background-position:center">
+        <main class="form-signin py-5">
+            <form asp-action="InicioSesion2">
+                <div class="col-3 card" style="padding-left: 2.5%; padding-right: 2.5%; padding-bottom: 2.5%; padding-top: 2.5%; background-color: #343434; margin:auto">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <img class="mb-4" src="~/images/Logo1.png" alt="" width="150" height="150">
+                        </div>
+                    </div>
+                    <h1 class="h3 mb-3 fw-normal" style="font-family: 'Lobster', cursive; color: white ; text-align: center;">Iniciar Sesion </h1>
+
+                    <label style="color:aliceblue" class="visually-hidden">Correo</label>
+                    <input class="form-control" asp-for="Correo" />
+
+                    <label style="color:aliceblue" class="visually-hidden">Contraseña</label>
+                    <input type="password" class="form-control" asp-for="Pass" />
+                    <label></label>
+
+                    @if (ViewBag.MensajeInicio != null)
+                    {
+                        var mensaje = @ViewBag.MensajeInicio;
+                        <div class="alert alert-danger "> @ViewBag.MensajeInicio </div>
+                    }
+
+                    <button class="w-100 btn btn-lg btn-primary" type="submit" style="background-color: #195da3; border: #195da3;">Iniciar Sesion </button>
+                    <label></label>
+                    <button class="w-100 btn btn-lg btn-primary" style="background-color: #195da3; border: #195da3;" asp-action="Create">Registrarse</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>

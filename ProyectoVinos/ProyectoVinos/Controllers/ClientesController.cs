@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,8 @@ using ProyectoVinos.Models;
 
 namespace ProyectoVinos.Controllers
 {
+
+    [Authorize(Roles ="Admin")]
     public class ClientesController : Controller
     {
         private readonly ProyectoVinosContext _context;
@@ -42,6 +46,8 @@ namespace ProyectoVinos.Controllers
 
             return View(cliente);
         }
+
+
 
         // GET: Clientes/Create
         public IActionResult Create()

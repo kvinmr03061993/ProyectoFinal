@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVinos.Data;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ProyectoVinos
 {
@@ -30,6 +30,25 @@ namespace ProyectoVinos
 
             services.AddDbContext<ProyectoVinosContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProyectoVinosContext")));
+
+            services.AddAuthentication(options =>
+             {
+                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+             }
+
+                 ).AddCookie(options => { options.LoginPath = "/Login/InicioSesion";
+                     options.Events.OnRedirectToAccessDenied = context =>
+                     {
+                         context.Response.Redirect("/Login/InicioSesion");
+                         return Task.CompletedTask;
+                     };
+                 
+                 });
+
+         
 
     
         }
@@ -52,7 +71,10 @@ namespace ProyectoVinos
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+           
 
             app.UseEndpoints(endpoints =>
             {

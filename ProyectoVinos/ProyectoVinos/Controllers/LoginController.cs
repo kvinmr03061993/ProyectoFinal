@@ -1,215 +1,232 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ProyectoVinos.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using ProyectoVinos.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProyectoVinos.Class;
+using ProyectoVinos.Data;
+using ProyectoVinos.Models;
 
 namespace ProyectoVinos.Controllers
 {
     public class LoginController : Controller
     {
-        ProyectoVinosContext ctx;
+        private readonly ProyectoVinosContext _context;
 
-        public LoginController(ProyectoVinosContext _ctx)
+        public LoginController(ProyectoVinosContext context)
         {
-            ctx = _ctx;
+            _context = context;
+        }
+
+        // GET: Login
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Cliente.ToListAsync());
+        }
+
+        public IActionResult InicioSesion()
+        {
+            return View(); ;
         }
 
 
-
-        // GET: LoginController
-        public ActionResult Index()
+        public async Task<IActionResult> InicioSesion2(Cliente cli)
         {
-            return View();
-        }
-
-
-
-
-        public ActionResult Registrarse()
-        {
-            return View();
-        }
-        public ActionResult Registrarse2()
-        {
-            return View();
-        }
-
-
-
-
-
-        [BindProperty]
-        public Cliente Cliente { get; set; }
-        public ActionResult SetCliente()
-        {
-            return Json(Cliente);
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-
-        }
-
-      
-        public ActionResult Login1()
-        {
-            return View();
-
-        }
-
-
-
-
-
-        public string Email { get; set; }
-        public string pass { get; set; }
-
-
-        public bool Autenticar()
-        {
-            return ctx.Cliente.Where(u => u.Correo == this.Email
-            && u.Pass == this.pass).FirstOrDefault() != null;
-        }
-
-
-
-
-        /*
-        [BindProperty]
-        public Cliente Usuarios { get; set; }
-
-        public async Task<IActionResult> Login()
-    {
-
-            if (!ModelState.IsValid)
+            var result = await _context.Cliente.Where(x => x.Correo == cli.Correo && x.Pass == cli.Pass).FirstOrDefaultAsync();
+            if (result != null)
             {
-                return BadRequest();
-            }
-            else
-            {
+        
 
-                var result = ctx.Cliente.Where(x => x.Correo == Usuarios.Correo).SingleOrDefaultAsync();
-                if (result == null)
+
+                if (result.Rol == "cliente")
                 {
-                    NotFound();
+                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Email, ClaimTypes.Role);
+                    identity.AddClaim(new Claim(ClaimTypes.Name, result.Correo.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.Nombre.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, result.Rol.ToString()));
+
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTime.Now.AddHours(1),
+                        IsPersistent = true
+                    });
+
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (result.Rol == "Admin")
+                {
+                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Email, ClaimTypes.Role);
+                    identity.AddClaim(new Claim(ClaimTypes.Name, result.Correo.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.Nombre.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, result.Rol.ToString()));
+
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+                    {
+                        ExpiresUtc = DateTime.Now.AddHours(1),
+                        IsPersistent = true
+                    });
+
+                    return RedirectToAction("Index2", "Home");
                 }
                 else
                 {
-                    return Ok();
+                    return RedirectToAction("InicioSesion", "Clientes");
                 }
-
-                return View();
-
             }
 
-
+            else
+            {
+                ViewBag.MensajeInicio = "El nombre de usuario o la contraseña no coinciden con nuestros registros. Por favor, revisar e intentarlo de nuevo.";
+                return View("InicioSesion");
+            }
         }
 
-        */
 
 
-        /*        public async Task<IActionResult> Login1()
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/Home/Index");
+        }
+
+
+
+
+
+
+
+        // GET: Login/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cliente = await _context.Cliente
+                .FirstOrDefaultAsync(m => m.IdCliente == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
+        }
+
+        // GET: Login/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Login/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("IdCliente,Nombre,PrimerApellido,SegundoApellido,Correo,Telefono,Usuario,Pass,Direccion,Provincia,Canton,Distrito,FechaNacimiento,Rol")] Cliente cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(cliente);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(cliente);
+        }
+
+        // GET: Login/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cliente = await _context.Cliente.FindAsync(id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
+        }
+
+        // POST: Login/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("IdCliente,Nombre,PrimerApellido,SegundoApellido,Correo,Telefono,Usuario,Pass,Direccion,Provincia,Canton,Distrito,FechaNacimiento,Rol")] Cliente cliente)
+        {
+            if (id != cliente.IdCliente)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    if (!ModelState.IsValid)
+                    _context.Update(cliente);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClienteExists(cliente.IdCliente))
                     {
-                        return BadRequest();
+                        return NotFound();
                     }
                     else
                     {
-
-                        var result = ctx.Cliente.Where(x => x.Correo == Usuarios.Correo).SingleOrDefaultAsync();
-                        if (result == null)
-                        {
-                            NotFound();
-                        }
-                        else
-                        {
-                            return Ok();
-                        }
-
-                        return View();
-
+                        throw;
                     }
-
-
                 }
-        */
-
-        // GET: LoginController/Details/5
-        public ActionResult Details()
-        {
-            return View();
-        }
-
-        // GET: LoginController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: LoginController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(cliente);
         }
 
-        // GET: LoginController/Edit/5
-        public ActionResult Edit()
+        // GET: Login/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cliente = await _context.Cliente
+                .FirstOrDefaultAsync(m => m.IdCliente == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
         }
 
-        // POST: LoginController/Edit/5
-        [HttpPost]
+        // POST: Login/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var cliente = await _context.Cliente.FindAsync(id);
+            _context.Cliente.Remove(cliente);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: LoginController/Delete/5
-        public ActionResult Delete()
+        private bool ClienteExists(int id)
         {
-            return View();
-        }
-
-        // POST: LoginController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return _context.Cliente.Any(e => e.IdCliente == id);
         }
     }
 }
-
