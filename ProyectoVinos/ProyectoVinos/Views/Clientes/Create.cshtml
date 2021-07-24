@@ -1,8 +1,6 @@
 ﻿@model ProyectoVinos.Models.Cliente
 
-@{
-    ViewData["Title"] = "Create";
-}
+@{ ViewData["Title"] = "Create"; }
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -21,7 +19,7 @@
 </style>
 
 
-<body class="text-center">
+<body class="text-center" onload="getProvinica()">
     <div class="bodySignin bgImage" style="background-image:url(../../images/Fondo.jpg); background-size:cover; background-position:center">
         <main class="form-signin py-5">
             <form asp-action="Create">
@@ -65,20 +63,34 @@
                     <span asp-validation-for="Direccion" class="text-danger"></span>
 
                     <label style="color:aliceblue" class="visually-hidden">Provincia</label>
-                    <input class="form-control" asp-for="Provincia" />
+                    <select asp-for="Provincia" class="form-control" id="destino" onchange="getCantones(this.value)"> </select>
                     <span asp-validation-for="Provincia" class="text-danger"></span>
 
                     <label style="color:aliceblue" class="visually-hidden">Canton</label>
-                    <input class="form-control" asp-for="Canton" />
+                    <select asp-for="Canton" class="form-control" id="cantones" onchange="getDistritos(this.value)"> </select>
                     <span asp-validation-for="Canton" class="text-danger"></span>
 
                     <label style="color:aliceblue" class="visually-hidden">Distrito</label>
-                    <input class="form-control" asp-for="Distrito" />
+                    <select asp-for="Distrito" class="form-control" id="distritos"> </select>
                     <span asp-validation-for="Distrito" class="text-danger"></span>
+
+                    @*<label style="color:aliceblue" class="visually-hidden">Provincia</label>
+                        <input class="form-control" asp-for="Provincia" />
+                        <span asp-validation-for="Provincia" class="text-danger"></span>
+
+                        <label style="color:aliceblue" class="visually-hidden">Canton</label>
+                        <input class="form-control" asp-for="Canton" />
+                        <span asp-validation-for="Canton" class="text-danger"></span>
+
+                        <label style="color:aliceblue" class="visually-hidden">Distrito</label>
+                        <input class="form-control" asp-for="Distrito" />
+                        <span asp-validation-for="Distrito" class="text-danger"></span>*@
 
                     <label style="color:aliceblue" class="visually-hidden">Fecha Nacimiento</label>
                     <input class="form-control" asp-for="FechaNacimiento" />
                     <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+
+
 
                     <input type="hidden" asp-for="Rol" value="cliente" />
                     <br />
@@ -87,6 +99,83 @@
             </form>
         </main>
     </div>
+
+
+    <script>
+
+        function getProvinica() {
+            $.ajax({
+                dataType: "json",
+                url: "https://ubicaciones.paginasweb.cr/provincias.json",
+                data: {},
+                success: function (data) {
+                    var html = "<select id='destino'>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select id='destino' class='form-control'";
+                    $('#destino').html(html);
+                }
+            });
+        }
+
+        function getCantones(id_provincia) {
+            //alert("id_provinicia: " + id_provincia);
+            var url1 = "https://ubicaciones.paginasweb.cr/provincia/";
+            var url2 = +id_provincia + "/cantones.json"
+            var _url = url1 + url2;
+            //alert(_url);
+            $.ajax({
+                dataType: "json",
+                url: _url,
+                data: {},
+                success: function (data) {
+                    //alert("Exito");
+                    var html = "<select id='cantones'>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select id='cantones' class='form-control'";
+                    $('#cantones').html(html);
+                },
+                Error: function () {
+                    alert("Error");
+                },
+
+            });
+        }
+
+        function getDistritos(id_canton) {
+            var id_provincia = $("#destino").val();
+            //alert("id_canton: " + id_canton + "id_provinicia: " + id_provincia);
+            var url1 = "https://ubicaciones.paginasweb.cr/provincia/";
+            var url2 = +id_provincia + "/canton/" + id_canton + "/distritos.json"
+            var _urlD = url1 + url2;
+            //alert(_urlD);
+            $.ajax({
+                dataType: "json",
+                url: _urlD,
+                data: {},
+                success: function (data) {
+                    //alert("Exito");
+                    var html = "<select>";
+                    for (key in data) {
+                        html += "<option value='" + key + "'>" + data[key] + "</option>";
+                    }
+                    html += "</select id='cantones' class='form-control'";
+                    $('#distritos').html(html);
+                },
+                Error: function () {
+                    alert("Error");
+                },
+
+            });
+        }
+
+
+
+    </script>
+
 </body>
 
 @section Scripts {

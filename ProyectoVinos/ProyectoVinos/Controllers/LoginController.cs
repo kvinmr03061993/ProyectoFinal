@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -45,9 +46,10 @@ namespace ProyectoVinos.Controllers
                 if (result.Rol == "cliente")
                 {
                     var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Email, ClaimTypes.Role);
-                    identity.AddClaim(new Claim(ClaimTypes.Name, result.Correo.ToString()));
+                    //identity.AddClaim(new Claim(ClaimTypes.Name, result.Correo.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.Nombre.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Role, result.Rol.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, result.IdCliente.ToString()));
 
                     var principal = new ClaimsPrincipal(identity);
 
