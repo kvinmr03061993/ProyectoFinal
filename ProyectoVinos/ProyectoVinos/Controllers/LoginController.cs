@@ -65,7 +65,7 @@ namespace ProyectoVinos.Controllers
                 else if (result.Rol == "Admin")
                 {
                     var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Email, ClaimTypes.Role);
-                    identity.AddClaim(new Claim(ClaimTypes.Name, result.Correo.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, result.IdCliente.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, result.Nombre.ToString()));
                     identity.AddClaim(new Claim(ClaimTypes.Role, result.Rol.ToString()));
 

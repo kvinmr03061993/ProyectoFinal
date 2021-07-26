@@ -1,0 +1,53 @@
+﻿@model ProyectoVinos.Models.ModeloWizard
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+
+<div class="mb-3">
+
+
+    <form asp-action="RealizarPedido">
+
+        <h3 class="mb-2">1) Seleccionar el Tipo de Vino <small>(Diferentes Tipos de Vino)</small></h3>
+        <div class="row justify-content-md-center mb-5">
+            <div class="col-md-6">
+
+                <h1 class="h3 mb-3 fw-normal" style="font-family: 'Lobster', cursive; color: white ; text-align: center;">Registrarse </h1>
+                <label style="color:darkred" class="visually-hidden">Tipo de Vino</label>
+                @Html.DropDownListFor(model => model.IdVino, Model.VinoList, "Seleccione Tipo Vino...", new { @class = "custom-select" })
+                <span asp-validation-for="IdVino" class="text-danger"></span>
+
+            </div>
+        </div>
+        <h3 class="mb-2">2) Seleccionar Diseño <small>(Se sugieren Diseños, en la seccion de abajo brindar intrucciones especificas)</small></h3>
+        <div class="row justify-content-md-center mb-5">
+            <div class="col-md-6">
+
+
+                <label style="color:darkred" class="visually-hidden">Diseño</label>
+                @Html.DropDownListFor(model => model.IdDiseño, Model.DiseñoList, "Seleccione un sabor...", new { @class = "custom-select" })
+                <span asp-validation-for="IdDiseño" class="text-danger"></span>
+
+            </div>
+        </div>
+        <h3 class="mb-2">3) Descripción Diseño <small>(Descripciones Persanalizadas del Diseño del Vino)</small></h3>
+        <div class="row justify-content-md-center mb-5">
+            <div class="col-md-6">
+
+                <label style="color:darkred" class="visually-hidden">Indicaciones Especificas</label>
+                <input class="form-control" asp-for="Descripcion" />
+                <span asp-validation-for="IdDiseño" class="text-danger"></span>
+
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <br />
+            <button class="w-100 btn btn-lg btn-primary" type="submit" value="Create" style="background-color: #195da3; border: #195da3;">Crear</button>
+        </div>
+    </form>
+</div>

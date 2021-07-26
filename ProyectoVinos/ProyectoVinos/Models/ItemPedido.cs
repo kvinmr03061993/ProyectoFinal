@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoVinos.Models
 {
+
+    [Serializable]
     public class ItemPedido
     {
         [Key]
@@ -26,8 +28,6 @@ namespace ProyectoVinos.Models
         public int IdDiseño { get; set; }
 
         [Required(ErrorMessage = "Escriba la cantidad.")]
-        [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
-        [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public int Cantidad { get; set; }
 
         [Required(ErrorMessage = "Escriba el precio")]

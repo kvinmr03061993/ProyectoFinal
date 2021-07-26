@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoVinos.Models
 {
+
+    [Serializable]
     public class Diseño
     {
         [Key]

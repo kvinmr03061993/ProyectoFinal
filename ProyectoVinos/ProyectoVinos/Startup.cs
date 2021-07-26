@@ -29,6 +29,8 @@ namespace ProyectoVinos
         {
             services.AddControllersWithViews();
 
+            services.AddSession();
+
             services.AddDbContext<ProyectoVinosContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProyectoVinosContext")));
 
@@ -50,7 +52,7 @@ namespace ProyectoVinos
                  });
 
             services.AddDistributedMemoryCache();
-            services.AddSession();
+          
          
 
     
@@ -69,6 +71,7 @@ namespace ProyectoVinos
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -79,7 +82,9 @@ namespace ProyectoVinos
             app.UseAuthorization();
 
 
-            app.UseSession();
+           
+
+  
 
             app.UseEndpoints(endpoints =>
             {

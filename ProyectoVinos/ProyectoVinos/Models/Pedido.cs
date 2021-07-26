@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoVinos.Models
 {
+    [Serializable]
     public class Pedido
     {
         [Key]
@@ -21,6 +22,8 @@ namespace ProyectoVinos.Models
         [Required(ErrorMessage = "Escriba la fecha de entrega.")]
         [DataType(DataType.Date)]
         public DateTime FechaEntrega { get; set; }
+
+        public String Estado { get; set; }
 
         [Required(ErrorMessage = "Escriba el precioTotal")]
         [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]

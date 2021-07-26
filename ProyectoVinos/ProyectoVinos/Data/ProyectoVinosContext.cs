@@ -23,5 +23,7 @@ namespace ProyectoVinos.Data
         public DbSet<ProyectoVinos.Models.Vino> Vino { get; set; }
 
         public DbSet<ProyectoVinos.Models.Pedido> Pedido { get; set; }
+
+        public DbSet<ProyectoVinos.Models.ItemPedido> ItemPedido { get; set; }
     }
 }

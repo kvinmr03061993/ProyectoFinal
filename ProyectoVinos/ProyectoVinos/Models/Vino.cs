@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoVinos.Models
 {
+
+    [Serializable]
     public class Vino
     {
 
@@ -17,7 +19,7 @@ namespace ProyectoVinos.Models
         public string Nombre { get; set; }
 
     
-        public float PrecioBase { get; set; }
+        public double PrecioBase { get; set; }
 
 
 
