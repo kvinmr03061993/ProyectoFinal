@@ -13,7 +13,7 @@ using ProyectoVinos.Models;
 namespace ProyectoVinos.Controllers
 {
 
-    [Authorize(Roles ="Admin")]
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly ProyectoVinosContext _context;
@@ -48,7 +48,8 @@ namespace ProyectoVinos.Controllers
         }
 
 
-
+        [Authorize (Roles = "cliente")]
+        [Authorize (Roles = "Admin")]
         // GET: Clientes/Create
         public IActionResult Create()
         {
