@@ -51,18 +51,18 @@ namespace ProyectoVinos.Models
         public string Direccion { get; set; }
         
         [Required(ErrorMessage = "Escriba su privincia.")]
-        [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
-        [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
+        //[MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
+        //[MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public string Provincia { get; set; }
         
         [Required(ErrorMessage = "Escriba su canton.")]
-        [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
-        [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
+        //[MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
+        //[MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public string Canton { get; set; }
         
         [Required(ErrorMessage = "Escriba su distrito.")]
-        [MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
-        [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
+        //[MinLength(4, ErrorMessage = "Escriba mas de 4 caracteres")]
+        //[MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public string Distrito { get; set; }
         
         [Required(ErrorMessage = "Escriba su fecha nacimiento.")]

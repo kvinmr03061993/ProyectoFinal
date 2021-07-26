@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVinos.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Session;
 
 namespace ProyectoVinos
 {
@@ -48,6 +49,8 @@ namespace ProyectoVinos
                  
                  });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
          
 
     
@@ -74,13 +77,15 @@ namespace ProyectoVinos
             app.UseAuthentication();
 
             app.UseAuthorization();
-           
+
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                     pattern: "{controller=Login}/{action=InicioSesion}/{id?}");
             });
         }
     }
