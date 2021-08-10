@@ -54,7 +54,7 @@ namespace ProyectoVinos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdVino,Nombre,PrecioBase")] Vino vino)
+        public async Task<IActionResult> Create([Bind("IdVino,Nombre,PrecioBase,ImagenVino,Marca,Año")] Vino vino)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ProyectoVinos.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdVino,Nombre,PrecioBase")] Vino vino)
+        public async Task<IActionResult> Edit(int id, [Bind("IdVino,Nombre,PrecioBase,ImagenVino,Marca,Año")] Vino vino)
         {
             if (id != vino.IdVino)
             {

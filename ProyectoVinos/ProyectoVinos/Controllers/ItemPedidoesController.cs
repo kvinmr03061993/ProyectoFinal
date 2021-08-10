@@ -34,6 +34,23 @@ namespace ProyectoVinos.Controllers
             }
 
             var itemPedido = await _context.ItemPedido
+                .FirstOrDefaultAsync(m => m.IdPedido == id);
+            if (itemPedido == null)
+            {
+                return NotFound();
+            }
+
+            return View(itemPedido);
+        }
+
+         public async Task<IActionResult> Details2(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var itemPedido = await _context.ItemPedido
                 .FirstOrDefaultAsync(m => m.IdItem == id);
             if (itemPedido == null)
             {

@@ -1,9 +1,15 @@
 ﻿@model ProyectoVinos.Models.ItemPedido
+@using ProyectoVinos.Class;
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+<br>
+<br>
+<br>
 
 <h1>Edit</h1>
 
@@ -52,7 +58,18 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+
+    @if (SessionHelper.GetRole(User) == "Admin")
+    {
+        <a asp-controller="Pedidos" asp-action="Index">Back to List</a>
+
+    }@if (SessionHelper.GetRole(User) == "cliente")
+    {
+        <a asp-controller="Pedidos" asp-action="MisPedidos">Back to List</a>
+    }
+
+
+
 </div>
 
 @section Scripts {

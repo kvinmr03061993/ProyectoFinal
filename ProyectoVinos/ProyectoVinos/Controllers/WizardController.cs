@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using ProyectoVinos.Class;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace ProyectoVinos.Controllers
 {
@@ -32,7 +32,7 @@ namespace ProyectoVinos.Controllers
             var model = new ModeloWizard();
             model.VinoList = new SelectList(_context.Vino.Select(r => new SelectListItem
             {
-                Text = r.Nombre,
+                Text = r.Nombre+"-"+r.Marca+"-"+r.Año,
                 Value = r.IdVino.ToString(),
             }), "Value", "Text");
 
@@ -55,7 +55,7 @@ namespace ProyectoVinos.Controllers
             {
                 model.VinoList = new SelectList(_context.Vino.Select(r => new SelectListItem
                 {
-                    Text = r.Nombre,
+                    Text = r.Nombre + "-" + r.Marca + "-" + r.Año,
                     Value = r.IdVino.ToString(),
                 }), "Value", "Text");
 
@@ -88,7 +88,7 @@ namespace ProyectoVinos.Controllers
             {
                 model.VinoList = new SelectList(_context.Vino.Select(r => new SelectListItem
                 {
-                    Text = r.Nombre,
+                    Text = r.Nombre + "-" + r.Marca + "-" + r.Año,
                     Value = r.IdVino.ToString(),
                 }), "Value", "Text");
 
@@ -118,6 +118,7 @@ namespace ProyectoVinos.Controllers
         {
             return _context.Cliente.Where(u => u.IdCliente == Int32.Parse(SessionHelper.GetName(User))).First().IdCliente;
         }
+
 
 
 

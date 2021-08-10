@@ -22,6 +22,11 @@ namespace ProyectoVinos.Controllers
         {
             return View();
         }
+
+        public IActionResult Historia()
+        {
+            return View();
+        }
         public IActionResult Index2()
         {
             return View();

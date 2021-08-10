@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 
 </head>
+
 <body id="page-top">
     <header>
         <!-- Navigation-->
@@ -26,35 +27,62 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        
+
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                        </li>
+
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Home" asp-action="Historia">Historia</a>
+                        </li>
+
+
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            if (SessionHelper.GetRole(User) == "Admin" )
+                            if (SessionHelper.GetRole(User) == "Admin")
                             {
 
                                 <li class="nav-item mx-0 mx-lg-1">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
                                 </li>
-                                
+
+                                <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Diseño" asp-action="Index">Diseño</a>
+                                </li>
+
+                                <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Vinoes" asp-action="Index">Vinos</a>
+                                </li>
+
+                                <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                                </li>
+
+
                             }
 
-                            if (SessionHelper.GetRole(User) == "cliente" )
+                            if (SessionHelper.GetRole(User) == "cliente")
                             {
 
                                 <li class="nav-item mx-0 mx-lg-1">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Clientes" asp-action="ActualizarCliente">Editar Perfil</a>
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Clientes" asp-action="ActualizarCliente">Editar Perfil</a>
                                 </li>
-                                
+
+
+                                <li class="nav-item mx-0 mx-lg-1">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Pedidos" asp-action="MisPedidos">Mis Pedidos</a>
+                                </li>
+
+
                             }
 
 
                             <li class="nav-item mx-0 mx-lg-1">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="ItemPedidoes" asp-action="Index">Diseño</a>
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Wizard" asp-action="RealizarPedido">Realizar Pedido</a>
                             </li>
 
-                            <li class="nav-item mx-0 mx-lg-1">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Vinoes" asp-action="Index">Vinos</a>
-                            </li>
+
 
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Login" asp-action="Logout">Cerrar Sesion</a>
@@ -78,6 +106,8 @@
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" asp-area="" asp-controller="Clientes" asp-action="Create">Registrarse</a>
                             </li>
+
+
 
 
                         }

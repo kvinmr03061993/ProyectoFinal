@@ -30,6 +30,7 @@ namespace ProyectoVinos.Models
         [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public double PrecioTotal { get; set; }
 
+
     }
 
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ProyectoVinos.Class;
 using ProyectoVinos.Data;
 using ProyectoVinos.Models;
 
@@ -42,6 +43,41 @@ namespace ProyectoVinos.Controllers
 
             return View(pedido);
         }
+
+        public async Task<IActionResult> Details2(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pedido = await _context.Pedido
+                .FirstOrDefaultAsync(m => m.IdPedido == id);
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+
+            return View(pedido);
+        }
+
+
+        private int getUserId()
+        {
+            return _context.Cliente.Where(u => u.IdCliente == Int32.Parse(SessionHelper.GetName(User))).First().IdCliente;
+        }
+
+
+        public async Task<IActionResult> MisPedidos()
+        {
+            int clienteId = getUserId();
+            return View(await _context.Pedido.Where(u =>u.IdCliente ==clienteId).ToListAsync()); ;
+        }
+
+
+
+
+
 
         // GET: Pedidos/Create
         public IActionResult Create()
@@ -126,6 +162,8 @@ namespace ProyectoVinos.Controllers
 
             var pedido = await _context.Pedido
                 .FirstOrDefaultAsync(m => m.IdPedido == id);
+            var item = await _context.ItemPedido
+              .FirstOrDefaultAsync(m => m.IdPedido == id);
             if (pedido == null)
             {
                 return NotFound();
@@ -140,7 +178,9 @@ namespace ProyectoVinos.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pedido = await _context.Pedido.FindAsync(id);
+            var item = await _context.ItemPedido.FirstOrDefaultAsync(m => m.IdPedido == id);
             _context.Pedido.Remove(pedido);
+            _context.ItemPedido.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -21,6 +21,10 @@ namespace ProyectoVinos.Models
     
         public double PrecioBase { get; set; }
 
+        public string ImagenVino { get; set; }
+        public string Marca { get; set; }
+        public string Año { get; set; }
+
 
 
     }

@@ -19,6 +19,8 @@
 </style>
 
 
+<br><br><br>
+
 <body class="text-center" onload="getProvinica()">
     <div class="bodySignin bgImage" style="background-image:url(../../images/Fondo.jpg); background-size:cover; background-position:center">
         <main class="form-signin py-5">
@@ -63,7 +65,7 @@
                     <span asp-validation-for="Direccion" class="text-danger"></span>
 
                     <label style="color:aliceblue" class="visually-hidden">Provincia</label>
-                    <select asp-for="Provincia" class="form-control" id="destino" onchange="getCantones(this.value)"> </select>
+                    <select asp-for="Provincia" class="form-control" id="destino" onchange="getCantones(this.value)"></select>
                     <span asp-validation-for="Provincia" class="text-danger"></span>
 
                     <label style="color:aliceblue" class="visually-hidden">Canton</label>
@@ -103,6 +105,7 @@
 
     <script>
 
+
         function getProvinica() {
             $.ajax({
                 dataType: "json",
@@ -133,6 +136,7 @@
                     //alert("Exito");
                     var html = "<select id='cantones'>";
                     for (key in data) {
+
                         html += "<option value='" + key + "'>" + data[key] + "</option>";
                     }
                     html += "</select id='cantones' class='form-control'";

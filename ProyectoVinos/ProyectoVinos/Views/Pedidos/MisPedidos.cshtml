@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProyectoVinos.Models.Pedido>
+
+@using ProyectoVinos.Class;
+
+<br />
+<br />
+<br />
+
+<div class="container my-3">
+    <h2>Mis Pedidos</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Fecha de Creación
+            </th>
+            <th>
+                Fecha Estimada de Entrega
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCreacion)
+                </td>
+                <td>
+                    @item.FechaEntrega.ToShortDateString()
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.PrecioTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                  
+                        <a asp-controller="ItemPedidoes" asp-action="Details" asp-route-id="@item.IdPedido">Detalles</a>
+
+                    
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
