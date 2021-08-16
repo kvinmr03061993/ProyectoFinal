@@ -25,6 +25,8 @@ namespace ProyectoVinos.Controllers
             _context = context;
         }
         // GET: Clientes
+
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cliente.ToListAsync());

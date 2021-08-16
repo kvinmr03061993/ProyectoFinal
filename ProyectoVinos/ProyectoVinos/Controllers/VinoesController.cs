@@ -49,6 +49,28 @@ namespace ProyectoVinos.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ListVinos()
+        {
+            return View(await _context.Vino.ToListAsync());
+        }
+
+        public async Task<IActionResult> VinoDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vino = await _context.Vino
+                .FirstOrDefaultAsync(m => m.IdVino == id);
+            if (vino == null)
+            {
+                return NotFound();
+            }
+
+            return View(vino);
+        }
+
         // POST: Vinoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

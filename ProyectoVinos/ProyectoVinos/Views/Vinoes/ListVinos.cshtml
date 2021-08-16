@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProyectoVinos.Models.Vino>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="container">
+    <br />
+    <h2 class="component-heading text-center">¡ Nuestros vinos !</h2>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="form-group col-md-4">
+
+                        <img src=" @( "~/VinoImage/" +item.ImagenVino ) "
+                             asp-append-version="true" width="250px" height="250px" />
+                        <p> <a asp-action="VinoDetails" asp-route-id="@item.IdVino">@item.Nombre </a></p>
+                        <p> <span class=" item_price">₡ @item.PrecioBase</span></p>
+                        <br />
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*<div class="container">
+        <br>
+        <h2 class="component-heading text-center">¡ Nuestros vinos !</h2>
+        <hr />
+
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+
+                    <div class="row">
+
+                        <div class="form-group col-md-4">
+                            <img src=" @( "~/VinoImage/" +item.ImagenVino ) "
+                                 asp-append-version="true" width="350px" height="350px" />
+                            <div class="card-body">
+                                <h5 class="component-heading text-center">@item.Nombre </h5>
+
+                                <p> <span class=" item_price">₡ @item.PrecioBase</span></p>
+                                <a asp-action="VinoDetails" asp-route-id="@item.IdVino">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class=" col-md-4">
+                </div>
+            </div>
+        }
+    </div>*@
+<br />
+<br />
+

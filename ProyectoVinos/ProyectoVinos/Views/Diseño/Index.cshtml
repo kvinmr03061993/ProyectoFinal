@@ -8,14 +8,17 @@
 <br>
 <br>
 
-<h1>Index</h1>
+<h1>Listado Temas de Diseño</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear nuevo Diseño</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDiseño)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -28,19 +31,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdDiseño">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdDiseño">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdDiseño">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdDiseño)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdDiseño">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdDiseño">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdDiseño">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
