@@ -11,7 +11,7 @@ namespace ProyectoVinos.Models
     public class ItemPedido
     {
         [Key]
-        public int IdItem{ get; set; }
+        public int IdItem { get; set; }
 
         [Required(ErrorMessage = "Escriba IdPedido")]
         public int IdPedido { get; set; }
@@ -35,5 +35,8 @@ namespace ProyectoVinos.Models
         [MaxLength(50, ErrorMessage = "Escriba menos de 50 caracteres")]
         public double Precio { get; set; }
 
+
     }
+
+
 }
